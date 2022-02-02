@@ -42,7 +42,7 @@ const loadData = (urlBase) => {
         lista.innerHTML = '';
         results.forEach((personaje) => {
             const itemLi = document.createElement('li');
-            itemLi.innerText = personaje.name + " is " + personaje.status;
+            itemLi.innerText = personaje.id + " -> " + personaje.name;
             lista.appendChild(itemLi);
         });
     });
@@ -50,8 +50,8 @@ const loadData = (urlBase) => {
 
 loadData(urlBase);
 
-const loadDataButton = (urlBase) => {
-    loadData(urlBase);
+const loadDataButton = (newUrl) => {
+    loadData(newUrl);
 }
 
 const creaButtons = () => {
@@ -59,6 +59,7 @@ const creaButtons = () => {
     btnLeft.className = "btn btn-primary m-3";
     btnLeft.id = "btnLeft";
     btnLeft.innerHTML = "Prev";
+
     const btnRight = document.createElement('button');
     btnRight.className = "btn btn-success m-3";
     btnRight.id = "btnRight";
