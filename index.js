@@ -1,6 +1,7 @@
 //Referencias a objetos el DOM
 const lista = document.getElementById('lista');
 const footer = document.querySelector('footer.container');
+const mainContainer = document.querySelector('main.container');
 
 const urlBase = 'https://rickandmortyapi.com/api/character';
 
@@ -39,11 +40,10 @@ const loadData = (urlBase) => {
         const results = respuestaJson.results;
         console.log(info);
         
-        lista.innerHTML = '';
+        mainContainer.innerHTML = '';
         results.forEach((personaje) => {
-            const itemLi = document.createElement('li');
-            itemLi.innerText = personaje.id + " -> " + personaje.name;
-            lista.appendChild(itemLi);
+            const card = creaCard(personaje);
+            mainContainer.appendChild(card);
         });
     });
 }
@@ -67,4 +67,40 @@ const creaButtons = () => {
     
     footer.appendChild(btnLeft);
     footer.appendChild(btnRight);
+}
+
+const creaCard = (personaje) => {
+
+    const divCard = document.createElement('div');
+    divCard.classList.add('card');
+    divCard.classList.add('m-3');
+    divCard.style = "width: 18rem; float: left;"
+
+    const image = document.createElement('img');
+    image.src = personaje.image;
+    image.classList.add('card-img-top');
+
+    const divBody = document.createElement('div');
+    divBody.classList.add('card-body');
+
+    const hName = document.createElement('h5');
+    hName.classList.add('card-title');
+    hName.innerText = personaje.name;
+
+    const pBody = document.createElement('p');
+    pBody.classList.add('card-text');
+    pBody.innerText = `Is ${ personaje.species }, is ${ personaje.gender } and is from ${ personaje.origin.name }`;
+
+    const bInfo = document.createElement('a');
+    bInfo.className = "btn btn-primary";
+    bInfo.innerText = "Go somewhere";
+
+    divBody.appendChild(hName);
+    divBody.appendChild(pBody);
+    divBody.appendChild(bInfo);
+
+    divCard.appendChild(image);
+    divCard.appendChild(divBody);
+
+    return divCard;
 }
